@@ -11,12 +11,15 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
     "typescript": "^7.0.2"
   },
-  "private": "true"
+  "private": "true",
+  "engines": {
+    "node": ">=20"
+  }
 }

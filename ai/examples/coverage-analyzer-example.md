@@ -1,0 +1,59 @@
+# Example — Test Coverage Analyzer
+
+Prompt: [test-coverage-analyzer.md](../prompts/test-coverage-analyzer.md).
+
+## Input given to the prompt
+
+**FEATURE:** SauceDemo shopping cart and the checkout steps that depend on it.
+
+**EXISTING_TEST_CASES** (titles from [docs/test-cases.md](../../docs/test-cases.md), IDs CART-001 to CART-027 and TC-006 to TC-010):
+add one / several products, cart item details, remove from cart and inventory pages, Continue Shopping, add from product detail page,
+cart requires login, empty-cart checkout, whitespace-only checkout data, empty cart, one item, six items, remove last item, repeated
+add/remove, reload, logout/login, separate sessions, Reset App State, order of items, double click, browser Back, `problem_user`,
+sorting keeps the cart, badge across pages, order clears the cart, totals match.
+
+**REQUIREMENTS:** none published; behaviour observed on 2026-11-17 (see [application analysis](../../docs/application-analysis.md)).
+
+## AI answer (draft)
+
+### 1. Coverage map
+
+| Area | Covered by | Assessment |
+|------|-----------|------------|
+| Add / remove, badge | CART-001..005, 011..015 | Good |
+| Persistence and state | CART-016..019 | Good |
+| Access control | CART-008 | Only the cart page; other pages not covered |
+| Checkout dependency on cart | CART-009, 026, 027 | Partial |
+| Product detail page | CART-007 | Add only; remove is not covered |
+| Users with known issues | CART-023 (`problem_user`) | `error_user`, `visual_user` only in TC-011 (exploratory) |
+| Non-functional (accessibility, mobile, browsers) | none | Out of scope in the test plan |
+
+### 2. Gaps (HYPOTHESES to confirm)
+
+| # | Suggested scenario | Why it matters | Risk |
+|---|--------------------|----------------|------|
+| 1 | Remove a product from its detail page | Third entry point for removal, only "add" is covered | Medium |
+| 2 | Direct URL access to `/checkout-step-one.html` and `/checkout-step-two.html` when logged out | Access control tested for `/cart.html` only | High |
+| 3 | Open `/checkout-step-two.html` directly with an empty cart / no customer data | Could skip the information step | Medium |
+| 4 | Checkout fields: very long text, special characters, non-numeric postal code (boundary) | Only empty and whitespace values are covered | Medium |
+| 5 | Cancel on the overview page, then resume | Only Cancel on step one is exercised | Low |
+| 6 | Browser Back/Forward inside the checkout flow | State handling between steps | Medium |
+| 7 | Cart behaviour at a narrow (mobile) viewport | Layout can hide the cart badge or buttons | Low |
+| 8 | Cart keyboard navigation (Tab/Enter) | Accessibility of add/remove buttons | Low |
+| 9 | Two tabs open on the same session | Cart state shared through storage | Low |
+| 10 | `performance_glitch_user` cart and checkout timing | Slow responses can break waits | Low |
+
+### 3. Overlaps
+- CART-004 and TC-007 both cover removal from the cart page; keep TC-007 as the main case and mark CART-004 as the variant.
+- CART-026 and TC-009 both finish an order; CART-026 adds the "cart is empty afterwards" check, so keep both but cross-reference.
+
+### 4. Not assessable
+- Real business rules (maximum quantity, stock levels, tax rules): `NOT PROVIDED`.
+
+## Human review
+
+| Check | Status |
+|-------|--------|
+| Gaps are real and not already covered | Pending — each item must be checked against the live site before writing a test case |
+| Overlap notes make sense | Pending |
+| Decision on which gaps become test cases | Pending — project owner |

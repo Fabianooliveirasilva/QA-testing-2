@@ -25,6 +25,7 @@ tests/           Playwright specs (login, inventory, cart, checkout) and fixture
 pages/           Page Objects: LoginPage, InventoryPage, CartPage, CheckoutPage
 test-data/       JSON data (users, products, checkout) and a typed config reader
 ai/prompts/      Five reusable AI prompts
+ai/examples/     Worked examples of the prompts on real project data
 ai/templates/    Bug report, test case, review checklist and result-input templates
 reports/         Generated HTML report, JSON results, failure artifacts (git-ignored)
 .github/workflows/  GitHub Actions pipeline
@@ -34,7 +35,7 @@ Test logic lives in `tests/`, UI interaction in `pages/`, data in `test-data/`, 
 
 ## Technologies
 
-Node.js, TypeScript (strict), Playwright Test, GitHub Actions, Markdown, JSON. No Docker, database, backend or dashboard.
+Node.js 20 or newer (`.nvmrc` pins 22, used by CI), TypeScript (strict), Playwright Test, GitHub Actions, Markdown, JSON. No Docker, database, backend or dashboard.
 
 ## Installation
 
@@ -76,6 +77,8 @@ All prompts work in any chat assistant and need no paid API key. See [ai/prompts
 4. **Regression Test Advisor** — picks regression tests after a change.
 5. **Test Result Analyzer** — triages Playwright output (`reports/results.json` or console).
 
+Worked examples with real project data are in [ai/examples/](ai/examples/README.md): bug report drafting, coverage analysis, regression advice and failure triage, each ending with a human review table that says what is confirmed and what is still pending.
+
 Every AI result goes through [the review checklist](ai/templates/ai-output-review-checklist.md) before it enters the repository.
 
 ## Automation coverage
@@ -94,7 +97,7 @@ Playwright web-first assertions, screenshots on failure, traces retained on fail
 
 ## CI/CD pipeline
 
-[.github/workflows/playwright.yml](.github/workflows/playwright.yml) runs on push to `main`, pull requests and manual dispatch:
+[.github/workflows/playwright.yml](.github/workflows/playwright.yml) runs on push to `main`, pull requests, manual dispatch and a **weekly schedule** (Mondays 06:00 UTC) that detects changes in the public demo site:
 install dependencies (`npm ci`), type check, install Chromium, run tests, then upload the HTML report (always) and the failure
 artifacts (screenshots and traces, on failure) as workflow artifacts. `SAUCE_PASSWORD` may be set as a repository secret; the public demo default is used otherwise.
 
@@ -113,4 +116,8 @@ Open the full report with `npm run report`. Findings from exploratory work, with
 - Exploratory findings (BUG-001 to BUG-009) have screenshot evidence in `docs/evidence/` but still need human triage.
 - Only the standard user is automated; the demo users with known issues (`problem_user`, `error_user`, `visual_user`) are covered by exploratory testing only (see BUG-003 to BUG-009).
 - AI workflows are prompt-based by design (no API key); an optional script could automate result triage.
-- Add visual and accessibility checks, and a scheduled CI run to detect drift in the public demo.
+- Add visual and accessibility checks, and Firefox/WebKit projects.
+
+## License
+
+[MIT](LICENSE)

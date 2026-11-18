@@ -12,3 +12,5 @@ copy the prompt, fill the `{{placeholders}}`, paste the answer into a draft and 
 | [test-result-analyzer.md](test-result-analyzer.md) | Triage Playwright failures |
 
 Principles: AI output is a hypothesis; evidence and inference are labelled; results are never invented; a human approves everything.
+
+See [../examples/](../examples/README.md) for each prompt applied to real project data.

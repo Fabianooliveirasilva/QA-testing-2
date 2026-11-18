@@ -1,0 +1,6 @@
+{
+  "standard": { "username": "standard_user" },
+  "locked": { "username": "locked_out_user" },
+  "invalid": { "username": "standard_user", "password": "not_the_password" },
+  "empty": { "username": "", "password": "" }
+}

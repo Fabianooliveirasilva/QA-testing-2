@@ -70,3 +70,52 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 - **Actual result:** All six products show the same image. Backpack, Bike Light and Onesie change to "Remove" (badge 3); Bolt T-Shirt, Fleece Jacket and Test.allTheThings() T-Shirt (Red) stay on "Add to cart".
 - **Evidence:** [inventory after the clicks](evidence/BUG-003-1-problem-user-inventory.png) (captured 2026-11-17).
 - **Notes / hypotheses (unconfirmed):** An earlier exploratory run that clicked the first remaining button repeatedly ended with badge 2, so the outcome may depend on the click sequence; re-check manually.
+
+## Exploratory findings — `error_user` and `visual_user` (2026-11-17)
+
+Both users are demo profiles designed to misbehave, so these are recorded as exploratory evidence against the
+`standard_user` baseline. Environment for all: Chromium (Playwright), Linux, https://www.saucedemo.com/, 1280x800.
+Status for every report: New (needs human triage).
+
+### BUG-004 — `error_user`: sorting has no effect and shows a "Sorting is broken" alert
+- **Severity:** Medium  **Priority:** P3  **Related:** TC-011, TC-005
+- **Steps:** 1. Log in as `error_user`. 2. Select "Price (low to high)" (the same happens with the other options).
+- **Expected:** Products are reordered (first price $7.99).
+- **Actual:** A browser alert appears ("Sorting is broken! This error has been reported to Backtrace."); the list keeps its original order (first price $29.99).
+- **Evidence:** [screenshot](evidence/error_user-1-sort-has-no-effect.png). The alert text was captured with a dialog listener; Playwright dismisses dialogs automatically, so they are invisible in plain runs.
+
+### BUG-005 — `error_user`: add/remove from the inventory fails silently for some products
+- **Severity:** High  **Priority:** P3  **Related:** TC-011, TC-006, TC-007
+- **Steps:** 1. Click "Add to cart" on every product once. 2. Click the toggle on Backpack, Bike Light and Onesie again to remove them.
+- **Expected:** All six are added (badge 6); the removals empty those products from the cart.
+- **Actual:** Bolt T-Shirt, Fleece Jacket and Red T-Shirt stay on "Add to cart" (badge 3 after six clicks). Backpack, Bike Light and Onesie stay on "Remove" and the badge does not decrease. No message is shown.
+- **Evidence:** [screenshot after add then remove of Backpack](evidence/error_user-2-add-remove-inconsistent.png) (button still "Remove", badge 1).
+- **Hypotheses (unconfirmed):** The same three products fail to add for `problem_user` (BUG-003), so the failure may depend on the product, not on the user.
+
+### BUG-006 — `error_user`: last name is not kept and checkout continues with it empty
+- **Severity:** High  **Priority:** P3  **Related:** TC-011, TC-008
+- **Steps:** 1. Add a product, open checkout. 2. Type "Ana", "Silva", "12345". 3. Click Continue.
+- **Expected:** "Silva" stays in Last Name; an empty last name would be rejected.
+- **Actual:** The Last Name field is empty after typing, yet Continue opens "Checkout: Overview" with no error.
+- **Evidence:** [screenshot](evidence/error_user-3-last-name-not-kept.png).
+
+### BUG-007 — `error_user`: Finish does not complete the order
+- **Severity:** High  **Priority:** P3  **Related:** TC-011, TC-009
+- **Steps:** 1. Reach "Checkout: Overview" as `error_user`. 2. Click Finish.
+- **Expected:** "Checkout: Complete!" with the confirmation message.
+- **Actual:** The page stays on "Checkout: Overview"; no error message or alert is shown.
+- **Evidence:** [screenshot](evidence/error_user-4-finish-does-not-complete.png).
+
+### BUG-008 — `visual_user`: inventory prices are wrong and change on every load
+- **Severity:** High  **Priority:** P3  **Related:** TC-011, TC-004
+- **Steps:** 1. Log in as `visual_user` and note the prices. 2. Reload the page. 3. Add Backpack and open the cart.
+- **Expected:** Prices match the catalog ($29.99, $9.99, $15.99, $49.99, $7.99, $15.99) and never change.
+- **Actual:** Prices differ from the catalog and change on each load (first load `$91.71, $21.88, $59.96, $63.8, $36.75, $22.26`, after reload `$51.48, $40.93, $59.85, $21.53, $15.14, $28.33`). The cart shows Backpack at the catalog price $29.99, so the inventory and cart disagree. Sorting by price also uses these random values.
+- **Evidence:** [visual_user inventory](evidence/visual_user-1-inventory-wrong-prices.png) next to the [standard_user reference](evidence/visual_user-0-reference-standard-inventory.png).
+
+### BUG-009 — `visual_user`: cart icon and Checkout button are misplaced
+- **Severity:** Low  **Priority:** P3  **Related:** TC-011
+- **Steps:** 1. Log in as `visual_user`, add a product. 2. Open the cart.
+- **Expected:** Same layout as `standard_user` (cart icon at the top-right corner of the header, Checkout button below the item list).
+- **Actual:** The cart icon sits lower and further left than the baseline (bounding box `1034,39,42,42` vs `1220,10,40,40`). On the cart page the Checkout button is at the very top of the page, outside the header area and away from the item list (bounding box `1060,0` vs `1045,606` for `standard_user` with two items).
+- **Evidence:** [screenshot](evidence/visual_user-2-cart-layout.png).

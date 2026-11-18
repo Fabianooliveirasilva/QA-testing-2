@@ -80,9 +80,9 @@ Conventions:
 
 ### TC-011 — Exploratory: demo users with known issues
 - **Priority / Severity / Type:** P3 / Medium / Exploratory
-- **Charter:** Explore `problem_user`, `error_user` and `visual_user` through login, cart and checkout to find behaviour that differs from `standard_user`.
-- **Notes:** Findings go to [bug-reports.md](bug-reports.md). See BUG-003 for the first result.
-- **Automation:** Manual
+- **Charter:** Explore `problem_user`, `error_user` and `visual_user` through login, sorting, cart and checkout and compare each with `standard_user`.
+- **Result (2026-11-17):** Executed for all three users. Findings: BUG-003 (`problem_user`), BUG-004 to BUG-007 (`error_user`), BUG-008 and BUG-009 (`visual_user`). `performance_glitch_user` is out of scope.
+- **Automation:** Manual (these users are deliberately unstable and are kept out of the regression suite)
 
 ## Part 2 — Shopping cart cases (AI-assisted design)
 

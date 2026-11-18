@@ -36,7 +36,7 @@ Status meanings: **Pass** = executed and matched the expectation; **Fail** = exe
 | TC-008 | Pass | Automated |
 | TC-009 | Pass | Automated |
 | TC-010 | Pass | Automated |
-| TC-011 | Partial | `problem_user` explored (BUG-003); `error_user` and `visual_user` not executed |
+| TC-011 | Fail | Executed for `problem_user`, `error_user` and `visual_user`; defects BUG-003 to BUG-009 |
 | CART-001, 002, 004, 005, 008, 011, 012, 014, 015, 016, 017, 019, 024, 026, 027 | Pass | Automated |
 | CART-003, 006, 007, 013, 018, 020, 021, 022, 025 | Pass | Observed on the live site on 2026-11-17 through exploratory scripts |
 | CART-009, 010, 023 | Fail | Behaviour differs from the QA judgement; see BUG-001, BUG-002, BUG-003 |
@@ -48,15 +48,21 @@ Status meanings: **Pass** = executed and matched the expectation; **Fail** = exe
 | BUG-001 | Checkout accepts an empty cart and completes a $0.00 order | Medium | P2 | New |
 | BUG-002 | Checkout accepts whitespace-only customer information | Low | P3 | New |
 | BUG-003 | `problem_user`: identical images and some products cannot be added | Medium | P3 | New |
+| BUG-004 | `error_user`: sorting has no effect and shows an alert | Medium | P3 | New |
+| BUG-005 | `error_user`: add/remove fails silently for some products | High | P3 | New |
+| BUG-006 | `error_user`: last name not kept, checkout continues without it | High | P3 | New |
+| BUG-007 | `error_user`: Finish does not complete the order | High | P3 | New |
+| BUG-008 | `visual_user`: wrong prices that change on every load | High | P3 | New |
+| BUG-009 | `visual_user`: cart icon and Checkout button misplaced | Low | P3 | New |
 
 ## 4. Limitations
 
-- SauceDemo has no specification, so BUG-001 to BUG-003 are judgement-based and need triage.
+- SauceDemo has no specification, so all defects are judgement-based and need triage. BUG-003 to BUG-009 concern demo users that are designed to misbehave.
 - Only Chromium was executed; Firefox and WebKit were not.
 - Exploratory findings were captured with scripts; screenshots are in `docs/evidence/`. The BUG-003 outcome varied between click sequences and needs a manual re-check.
 - Observations were made on one date; the public demo can change without notice.
 
 ## 5. Conclusion
 
-The automated regression suite is green and stable. Three observations were raised for triage. No release decision is implied:
+The automated regression suite is green and stable. Nine observations were raised for triage. No release decision is implied:
 this is a portfolio exercise against a public demo.

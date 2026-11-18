@@ -37,7 +37,7 @@ Node.js, TypeScript (strict), Playwright Test, GitHub Actions, Markdown, JSON. N
 ## Installation
 
 ```bash
-git clone <repository-url> && cd smartqa-lab
+git clone https://github.com/Fabianooliveirasilva/QA-testing-2.git && cd QA-testing-2
 npm ci
 npx playwright install chromium
 cp .env.example .env   # optional; defaults work for the public demo

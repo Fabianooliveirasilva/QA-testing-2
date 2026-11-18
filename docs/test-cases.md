@@ -41,7 +41,7 @@ Conventions:
 - **Preconditions:** Logged in; product list open.
 - **Steps:** 1. Select each sort option: Name (A to Z), Name (Z to A), Price (low to high), Price (high to low).
 - **Expected:** The list is reordered according to the selected option each time.
-- **Automation:** `tests/inventory.spec.ts` — sorting by price (low to high). Other options: Manual.
+- **Automation:** `tests/inventory.spec.ts` — one test per sort option (all four)
 
 ### TC-006 — Add product to cart
 - **Priority / Severity / Type:** P1 / Critical / Positive
@@ -97,27 +97,27 @@ Generated with the [Test Case Generator prompt](../ai/prompts/test-case-generato
 | CART-002 | Add several products | Positive | Logged in, empty cart | 1. Add Backpack and Bike Light 2. Open cart | Badge 2; cart lists both | P1 | Automated |
 | CART-003 | Cart item details | Positive | Cart has 1 product | 1. Open cart | Name, description, price and quantity 1 are shown | P2 | Observed 2026-11-17 |
 | CART-004 | Remove from cart page | Positive | Cart has 2 products | 1. Open cart 2. Click Remove on one | Item disappears; badge shows 1 | P1 | Automated |
-| CART-005 | Remove from inventory page | Positive | Cart has 1 product | 1. Click Remove on the inventory page | Button returns to Add to cart; badge hidden | P2 | Not yet verified |
+| CART-005 | Remove from inventory page | Positive | Cart has 1 product | 1. Click Remove on the inventory page | Button returns to Add to cart; badge hidden | P2 | Automated |
 | CART-006 | Continue Shopping | Positive | Cart has 1 product, cart open | 1. Click Continue Shopping | Inventory opens; cart content unchanged | P2 | Observed 2026-11-17 |
 | CART-007 | Add from product detail page | Positive | Logged in | 1. Open a product 2. Click Add to cart | Badge shows 1; button reflects the state on return to inventory | P2 | Observed 2026-11-17 |
-| CART-008 | Cart requires login | Negative | Logged out | 1. Open `/cart.html` directly | Access denied: "You can only access '/cart.html' when you are logged in." | P1 | Observed 2026-11-17 |
+| CART-008 | Cart requires login | Negative | Logged out | 1. Open `/cart.html` directly | Access denied: "You can only access '/cart.html' when you are logged in." | P1 | Automated |
 | CART-009 | Checkout with empty cart | Negative | Logged in, empty cart | 1. Open cart 2. Click Checkout 3. Enter valid data 4. Continue, Finish | Checkout should be blocked or warn that the cart is empty. **Observed:** flow continues to a $0.00 order and completes — see BUG-001 | P2 | Judgement (fails) |
 | CART-010 | Whitespace-only checkout data | Negative | Cart has 1 product, checkout open | 1. Enter only spaces in all three fields 2. Continue | Validation error. **Observed:** accepted, overview shown — see BUG-002 | P3 | Judgement (fails) |
 | CART-011 | Empty cart state | Boundary | Logged in, empty cart | 1. Open cart | Empty list, no badge, Checkout and Continue Shopping available | P2 | Automated |
 | CART-012 | Minimum quantity (1 item) | Boundary | Empty cart | 1. Add one product | Badge shows exactly 1 | P2 | Automated |
 | CART-013 | Maximum catalog (6 items) | Boundary | Empty cart | 1. Add all six products | Badge shows 6 | P2 | Observed 2026-11-17 |
 | CART-014 | Remove last item | Boundary | Cart has 1 product | 1. Remove it | Cart empty; badge hidden | P1 | Automated |
-| CART-015 | Quantity stays at 1 | Boundary | Empty cart | 1. Add and remove the same product 5 times 2. Add once more | Quantity is 1; badge 1; no duplicates | P3 | Not yet verified |
-| CART-016 | Cart survives reload | Edge | Cart has 6 items | 1. Reload the page | Badge still 6 | P2 | Observed 2026-11-17 |
-| CART-017 | Cart survives logout/login | Edge | Cart has items | 1. Logout 2. Login as the same user | Badge and cart unchanged (observed) | P2 | Observed 2026-11-17 |
+| CART-015 | Quantity stays at 1 | Boundary | Empty cart | 1. Add and remove the same product 5 times 2. Add once more | Quantity is 1; badge 1; no duplicates | P3 | Automated |
+| CART-016 | Cart survives reload | Edge | Cart has 6 items | 1. Reload the page | Badge still 6 | P2 | Automated |
+| CART-017 | Cart survives logout/login | Edge | Cart has items | 1. Logout 2. Login as the same user | Badge and cart unchanged (observed) | P2 | Automated |
 | CART-018 | Cart not shared between sessions | Edge | Cart has items in browser A | 1. Login in a separate browser context | Cart is empty (observed: state is stored per browser) | P3 | Observed 2026-11-17 |
-| CART-019 | Reset App State | Edge | Cart has items | 1. Menu → Reset App State 2. Reload | Cart empty; all buttons show Add to cart | P2 | Observed 2026-11-17 |
+| CART-019 | Reset App State | Edge | Cart has items | 1. Menu → Reset App State 2. Reload | Cart empty; all buttons show Add to cart | P2 | Automated |
 | CART-020 | Items listed in the order added | Edge | Empty cart | 1. Add Onesie, then Backpack 2. Open cart | Cart order: Onesie, Backpack (observed) | P3 | Observed 2026-11-17 |
-| CART-021 | Rapid double click on Add | Edge | Empty cart | 1. Double-click Add to cart | Single item; badge 1 | P3 | Not yet verified |
-| CART-022 | Browser Back keeps button state | Edge | Cart has 1 product, cart open | 1. Browser Back | Inventory shows Remove for the added product | P3 | Not yet verified |
+| CART-021 | Rapid double click on Add | Edge | Empty cart | 1. Double-click Add to cart | Two clicks toggle the product: it is added, then removed. No duplicate is created; final state is Add to cart and no badge | P3 | Observed 2026-11-17 |
+| CART-022 | Browser Back keeps button state | Edge | Cart has 1 product, cart open | 1. Browser Back | Inventory shows Remove for the added product | P3 | Observed 2026-11-17 |
 | CART-023 | `problem_user` add all products | Edge | Login as `problem_user` | 1. Click Add to cart on every product | All six are added. **Observed:** badge 3; Bolt T-Shirt, Fleece Jacket and Red T-Shirt stay on Add to cart — see BUG-003 | P3 | Observed 2026-11-17 (fails) |
-| CART-024 | Sorting does not change cart | Regression | Cart has 2 products | 1. Change the sort option 2. Open cart | Cart unchanged | P3 | Not yet verified |
-| CART-025 | Badge consistent across pages | Regression | Cart has 2 products | 1. Visit inventory, cart, checkout pages | Badge shows 2 on every page | P2 | Not yet verified |
+| CART-024 | Sorting does not change cart | Regression | Cart has 2 products | 1. Change the sort option 2. Open cart | Cart unchanged | P3 | Automated |
+| CART-025 | Badge consistent across pages | Regression | Cart has 1 product | 1. Visit inventory, cart, checkout information and overview pages | Badge matches the cart count (1) on every page | P2 | Observed 2026-11-17 |
 | CART-026 | Order clears the cart | Regression | Cart has 2 products | 1. Complete checkout 2. Return to products | Cart empty; badge hidden; a new order can be started | P1 | Automated |
 | CART-027 | Cart total matches overview | Regression | Cart has 2 products | 1. Note prices in cart 2. Continue to overview | Overview item total equals the sum of cart prices | P1 | Automated |
 
@@ -125,4 +125,6 @@ Generated with the [Test Case Generator prompt](../ai/prompts/test-case-generato
 
 The cart set was designed to avoid overlapping Part 1: adding, removing and checkout validation appear once as core cases
 (TC-006 to TC-010) and are extended here only with boundary, edge and regression variants.
-Not yet verified cases are candidates for the next manual execution cycle.
+CART-021 is a documented correction: the first AI draft expected a double click to add one item, but the real behaviour is
+add-then-remove (a toggle button). The expected result was fixed after verification, which is why AI output must be checked.
+All 27 cart cases are now either automated, observed on the live site, or recorded as failing (BUG-001 to BUG-003).

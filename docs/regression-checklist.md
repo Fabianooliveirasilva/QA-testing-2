@@ -13,15 +13,15 @@ Tick manually; "Auto" items are covered by `npm test`, which should run first.
 
 ## Login
 - [ ] Error message can be dismissed and a retry succeeds
-- [ ] Logout returns to the login page; protected URLs are denied when logged out (CART-008)
+- [ ] Logout returns to the login page; protected URLs are denied when logged out (CART-008, automated)
 
 ## Inventory
-- [ ] All four sort options (TC-005); only price low-to-high is automated
+- [ ] Auto — All four sort options (TC-005)
 - [ ] Product detail page opens; Add to cart works from it (CART-007)
 
 ## Cart
-- [ ] Cart survives reload and logout/login (CART-016, CART-017)
-- [ ] Reset App State clears cart and buttons (CART-019)
+- [ ] Auto — Cart survives reload and logout/login (CART-016, CART-017)
+- [ ] Auto — Reset App State clears cart and buttons (CART-019)
 - [ ] Continue Shopping keeps the cart (CART-006)
 - [ ] Badge consistent across pages (CART-025)
 

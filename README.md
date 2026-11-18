@@ -1,5 +1,7 @@
 # SmartQA Lab
 
+[![Playwright Tests](https://github.com/Fabianooliveirasilva/QA-testing-2/actions/workflows/playwright.yml/badge.svg)](https://github.com/Fabianooliveirasilva/QA-testing-2/actions/workflows/playwright.yml)
+
 A lightweight QA portfolio project that tests the public demo shop [SauceDemo](https://www.saucedemo.com/) with three
 complementary approaches: **manual testing documentation**, **AI-assisted QA workflows** and **automated browser tests**
 (Playwright + TypeScript). No application was built: SauceDemo is the system under test.
@@ -78,13 +80,13 @@ Every AI result goes through [the review checklist](ai/templates/ai-output-revie
 
 ## Automation coverage
 
-13 tests, all independent (each starts from a fresh browser context):
+23 tests, all independent (each starts from a fresh browser context):
 
 | Area | Scenarios |
 |------|-----------|
 | Login | successful login, wrong password, locked user, empty credentials |
-| Inventory | six products with names and prices, sorting by price |
-| Cart | add products, remove a product, remove the last product |
+| Inventory | six products with names and prices, all four sort options |
+| Cart | add, remove (cart page and inventory page), remove the last item, no duplicates after repeated add/remove, sorting keeps the cart, survives reload and logout/login, Reset App State, access denied when logged out |
 | Checkout | successful order with consistent totals, three incomplete-information cases |
 
 Design choices: accessible locators first (`getByRole`), `data-test` test ids only where no role exists, no fixed sleeps,
@@ -98,23 +100,17 @@ artifacts (screenshots and traces, on failure) as workflow artifacts. `SAUCE_PAS
 
 ## Example results
 
-Local run on 2026-11-17 (Chromium): 13 passed, 0 failed, about 6 seconds, stable across 4 consecutive runs.
+Local run on 2026-11-17 (Chromium): 23 passed, 0 failed, about 10 seconds, stable across repeated runs. The same suite passes in GitHub Actions.
 
-```
-  ✓ Cart › adding products updates the badge and the cart contents
-  ✓ Checkout › completes an order and shows consistent totals
-  ✓ Login › locked out user cannot log in
-  ...
-  13 passed (5.7s)
-```
+![Playwright HTML report](docs/evidence/playwright-html-report.png)
 
-Open the full report with `npm run report`. Findings from exploratory work are in [docs/bug-reports.md](docs/bug-reports.md).
+Open the full report with `npm run report`. Findings from exploratory work, with screenshots, are in [docs/bug-reports.md](docs/bug-reports.md).
 
 ## Limitations and future improvements
 
 - SauceDemo has no specification; some expected results are judgement calls and are labelled as such.
 - Only Chromium is configured; add Firefox and WebKit projects.
 - Exploratory findings (BUG-001 to BUG-003) have screenshot evidence in `docs/evidence/` but still need human triage.
-- Only one sort option and the standard user are automated; add the remaining sort options and negative cart cases.
+- Only the standard user is automated; the demo users with known issues (`problem_user`, `error_user`, `visual_user`) are covered by exploratory testing only.
 - AI workflows are prompt-based by design (no API key); an optional script could automate result triage.
 - Add visual and accessibility checks, and a scheduled CI run to detect drift in the public demo.

@@ -48,13 +48,13 @@ Status meanings: **Pass** = executed and matched the expectation; **Fail** = exe
 |----|-------|----------|----------|--------|
 | BUG-001 | Checkout accepts an empty cart and completes a $0.00 order | Medium | P2 | New |
 | BUG-002 | Checkout accepts whitespace-only customer information | Low | P3 | New |
-| BUG-003 | `problem_user`: identical images and incomplete add-to-cart | Medium | P3 | New |
+| BUG-003 | `problem_user`: identical images and some products cannot be added | Medium | P3 | New |
 
 ## 4. Limitations
 
 - SauceDemo has no specification, so BUG-001 to BUG-003 are judgement-based and need triage.
 - Only Chromium was executed; Firefox and WebKit were not.
-- Exploratory findings were observed through scripts and have no stored screenshots yet.
+- Exploratory findings were captured with scripts; screenshots are in `docs/evidence/`. The BUG-003 outcome varied between click sequences and needs a manual re-check.
 - Observations were made on one date; the public demo can change without notice.
 
 ## 5. Conclusion

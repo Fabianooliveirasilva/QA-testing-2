@@ -115,7 +115,7 @@ Generated with the [Test Case Generator prompt](../ai/prompts/test-case-generato
 | CART-020 | Items listed in the order added | Edge | Empty cart | 1. Add Onesie, then Backpack 2. Open cart | Cart order: Onesie, Backpack (observed) | P3 | Observed 2026-11-17 |
 | CART-021 | Rapid double click on Add | Edge | Empty cart | 1. Double-click Add to cart | Single item; badge 1 | P3 | Not yet verified |
 | CART-022 | Browser Back keeps button state | Edge | Cart has 1 product, cart open | 1. Browser Back | Inventory shows Remove for the added product | P3 | Not yet verified |
-| CART-023 | `problem_user` add all products | Edge | Login as `problem_user` | 1. Click Add to cart on every product | All six are added. **Observed:** badge 2, only 2 Remove buttons — see BUG-003 | P3 | Observed 2026-11-17 (fails) |
+| CART-023 | `problem_user` add all products | Edge | Login as `problem_user` | 1. Click Add to cart on every product | All six are added. **Observed:** badge 3; Bolt T-Shirt, Fleece Jacket and Red T-Shirt stay on Add to cart — see BUG-003 | P3 | Observed 2026-11-17 (fails) |
 | CART-024 | Sorting does not change cart | Regression | Cart has 2 products | 1. Change the sort option 2. Open cart | Cart unchanged | P3 | Not yet verified |
 | CART-025 | Badge consistent across pages | Regression | Cart has 2 products | 1. Visit inventory, cart, checkout pages | Badge shows 2 on every page | P2 | Not yet verified |
 | CART-026 | Order clears the cart | Regression | Cart has 2 products | 1. Complete checkout 2. Return to products | Cart empty; badge hidden; a new order can be started | P1 | Automated |

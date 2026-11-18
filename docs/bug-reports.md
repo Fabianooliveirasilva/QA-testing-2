@@ -38,7 +38,7 @@ triage before being treated as a confirmed defect. Severity and priority are rat
   4. Click Finish.
 - **Expected result:** Checkout is blocked, or the user is warned that the cart is empty.
 - **Actual result:** The overview shows "Total: $0.00" and the order completes with "Thank you for your order!".
-- **Evidence:** Reproduced by an exploratory script run; no screenshot stored yet — attach one when re-testing manually.
+- **Evidence:** [empty cart](evidence/BUG-001-1-empty-cart.png), [overview with $0.00 total](evidence/BUG-001-2-overview-zero-total.png), [order completed](evidence/BUG-001-3-order-completed.png) (captured 2026-11-17).
 - **Notes / hypotheses (unconfirmed):** The demo may intentionally skip cart validation.
 
 ### BUG-002 — Checkout accepts whitespace-only customer information
@@ -53,10 +53,10 @@ triage before being treated as a confirmed defect. Severity and priority are rat
   2. Click Continue.
 - **Expected result:** A validation error, as for empty fields.
 - **Actual result:** The user proceeds to "Checkout: Overview".
-- **Evidence:** Reproduced by an exploratory script run; no screenshot stored yet.
+- **Evidence:** [whitespace entered](evidence/BUG-002-1-whitespace-input.png), [overview shown](evidence/BUG-002-2-overview-accepted.png) (captured 2026-11-17).
 - **Notes / hypotheses (unconfirmed):** Validation probably checks for an empty string without trimming input.
 
-### BUG-003 — `problem_user`: identical product images and incomplete add-to-cart
+### BUG-003 — `problem_user`: identical product images and some products cannot be added to the cart
 - **Status:** New (likely intentional behaviour of a demo user; recorded as exploratory evidence)
 - **Severity:** Medium
 - **Priority:** P3
@@ -65,8 +65,8 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 - **Preconditions:** Logged in as `problem_user`, empty cart.
 - **Steps to reproduce:**
   1. Open the product list and compare the product images.
-  2. Click "Add to cart" on products repeatedly until all buttons were tried (six attempts).
-- **Expected result:** Each product shows its own image; all products can be added (badge 6).
-- **Actual result:** The six images share one source (1 distinct image of 6); after the attempts the badge shows 2 and only 2 Remove buttons exist.
-- **Evidence:** Exploratory script output only; no screenshot stored yet.
-- **Notes / hypotheses (unconfirmed):** The script clicked the first remaining "Add to cart" button each time, so the exact set of products that fail should be re-checked manually.
+  2. Click "Add to cart" once on each of the six products.
+- **Expected result:** Each product shows its own image; all six products are added (badge 6).
+- **Actual result:** All six products show the same image. Backpack, Bike Light and Onesie change to "Remove" (badge 3); Bolt T-Shirt, Fleece Jacket and Test.allTheThings() T-Shirt (Red) stay on "Add to cart".
+- **Evidence:** [inventory after the clicks](evidence/BUG-003-1-problem-user-inventory.png) (captured 2026-11-17).
+- **Notes / hypotheses (unconfirmed):** An earlier exploratory run that clicked the first remaining button repeatedly ended with badge 2, so the outcome may depend on the click sequence; re-check manually.

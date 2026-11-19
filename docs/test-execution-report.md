@@ -54,6 +54,7 @@ Status meanings: **Pass** = executed and matched the expectation; **Fail** = exe
 | BUG-007 | `error_user`: Finish does not complete the order | High | P3 | New |
 | BUG-008 | `visual_user`: wrong prices that change on every load | High | P3 | New |
 | BUG-009 | `visual_user`: cart icon and Checkout button misplaced | Low | P3 | New |
+| BUG-010 | Checkout steps can be skipped by opening the Overview URL directly | Medium | P2 | New |
 
 ## 4. Limitations
 

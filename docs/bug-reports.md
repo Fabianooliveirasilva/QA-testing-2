@@ -119,3 +119,24 @@ Status for every report: New (needs human triage).
 - **Expected:** Same layout as `standard_user` (cart icon at the top-right corner of the header, Checkout button below the item list).
 - **Actual:** The cart icon sits lower and further left than the baseline (bounding box `1034,39,42,42` vs `1220,10,40,40`). On the cart page the Checkout button is at the very top of the page, outside the header area and away from the item list (bounding box `1060,0` vs `1045,606` for `standard_user` with two items).
 - **Evidence:** [screenshot](evidence/visual_user-2-cart-layout.png).
+
+## Additional finding — coverage gap verification (2026-11-18)
+
+Found while verifying gap 3 of the [Coverage Analyzer example](../ai/examples/coverage-analyzer-example.md) with a Playwright
+script. Status: New (needs human triage and manual reproduction).
+
+### BUG-010 — Checkout steps can be skipped by opening the Overview URL directly
+- **Status:** New (needs human triage)
+- **Severity:** Medium
+- **Priority:** P2
+- **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-18
+- **Related test case:** CART-009, CART-010 (related to BUG-001)
+- **Preconditions:** Logged in as `standard_user`; no customer information entered.
+- **Steps to reproduce:**
+  1. Add "Sauce Labs Backpack" to the cart (or leave the cart empty).
+  2. Without opening the cart or the information step, go directly to `https://www.saucedemo.com/checkout-step-two.html`.
+  3. Click Finish.
+- **Expected result:** The user is redirected to the information step (or the cart), and an order cannot be completed without first name, last name and postal code.
+- **Actual result:** "Checkout: Overview" opens (Total $32.39 with the Backpack, $0.00 with an empty cart) and Finish leads to "Checkout: Complete!" / "Thank you for your order!" with no customer data.
+- **Evidence:** [Overview opened by URL](evidence/BUG-010-1-overview-opened-directly.png), [order completed](evidence/BUG-010-2-order-completed.png) (captured 2026-11-18 with a Playwright script). Logged-out access to both checkout URLs is correctly denied (gap 2 discarded).
+- **Notes / hypotheses (unconfirmed):** The application seems to check only for a logged-in session, not for completion of the previous step. Distinct from BUG-001, which concerns the normal flow with an empty cart.

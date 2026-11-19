@@ -25,22 +25,22 @@ Tick manually; "Auto" items are covered by `npm test`, which should run first.
 ## Cart
 
 - [x] Auto — Cart survives reload and logout/login (CART-016, CART-017)
-- [ ] Auto — Reset App State clears cart and buttons (CART-019)
-- [ ] Continue Shopping keeps the cart (CART-006)
-- [ ] Badge consistent across pages (CART-025)
+- [x] Auto — Reset App State clears cart and buttons (CART-019)
+- [x] Continue Shopping keeps the cart (CART-006)
+- [x] Badge consistent across pages (CART-025)
 
 ## Checkout
 
-- [ ] Cancel on step one returns to the cart
-- [ ] Empty cart and whitespace-only data behaviour unchanged or fixed (BUG-001, BUG-002)
+- [x] Cancel on step one returns to the cart
+- [x] Empty cart and whitespace-only data behaviour unchanged or fixed (BUG-001, BUG-002)
 
 ## Exploratory (time-boxed, 20 minutes)
 
-- [ ] `problem_user`, `error_user`, `visual_user` — compare with `standard_user` (TC-011)
+- [x] `problem_user`, `error_user`, `visual_user` — compare with `standard_user` (TC-011)
 
 ## Sign-off
 
-- Build / date: ______
-- Tester: ______
-- Result: Pass / Fail
-- Open defects: ______
+- Build / date: 2026-11-18
+- Tester: Fabiano Oliveira
+- Result: Pass
+- Open defects: BUG-001 a BUG-010

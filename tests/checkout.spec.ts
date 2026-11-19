@@ -29,6 +29,18 @@ test.describe('Checkout', () => {
     await expect(inventoryPage.cartBadge).toBeHidden();
   });
 
+  // Fixed expectation (not derived from the page), so a wrong tax rate is caught even if
+  // item total, tax and total are consistent with each other. Observed on 2026-11-17: 8% rate.
+  test('applies the expected tax to a known cart ($39.98 -> $3.20)', async ({ checkoutPage }) => {
+    await checkoutPage.fillInformation(checkout.valid);
+    await checkoutPage.continue();
+    await checkoutPage.expectOverview();
+
+    await expect(checkoutPage.itemTotal).toHaveText('Item total: $39.98');
+    await expect(checkoutPage.tax).toHaveText('Tax: $3.20');
+    await expect(checkoutPage.total).toHaveText('Total: $43.18');
+  });
+
   for (const [name, data] of Object.entries(checkout).filter(([key]) => key.startsWith('missing'))) {
     test(`blocks checkout when information is incomplete (${name})`, async ({ checkoutPage }) => {
       const { error, ...info } = data as typeof checkout.missingFirstName;

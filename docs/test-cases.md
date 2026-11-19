@@ -76,7 +76,7 @@ Conventions:
 - **Preconditions:** Cart contains Backpack ($29.99) and Bike Light ($9.99); on the overview page.
 - **Steps:** 1. Compare the listed items with the cart. 2. Check item total, tax and total.
 - **Expected:** Item total is $39.98; total equals item total plus tax (observed: tax $3.20, total $43.18); payment and shipping information are shown.
-- **Automation:** `tests/checkout.spec.ts` — consistent totals (item total and total = item total + tax)
+- **Automation:** `tests/checkout.spec.ts` — consistent totals (item total and total = item total + tax), plus a fixed-value check for the same cart (item total $39.98, tax $3.20, total $43.18)
 
 ### TC-011 — Exploratory: demo users with known issues
 - **Priority / Severity / Type:** P3 / Medium / Exploratory

@@ -12,11 +12,11 @@
 
 | Metric | Result |
 |--------|--------|
-| Tests | 23 |
-| Passed | 23 |
+| Tests | 24 |
+| Passed | 24 |
 | Failed / flaky / skipped | 0 / 0 / 0 |
 | Duration | about 10 s (4 workers) |
-| Stability | 3 consecutive full runs of the final suite, all 23 passed (the first 13-test suite was also run 4 times) |
+| Stability | 3 consecutive full runs of the final suite, all 23 passed (the first 13-test suite was also run 4 times); the 24-test suite, with the explicit tax assertion added on 2026-11-18, was run once and all 24 passed |
 | Failure capture check | A deliberately failing temporary test produced a screenshot, a trace and an error context file; the temporary test was removed afterwards |
 
 ## 2. Manual / scripted case status

@@ -48,4 +48,4 @@ CART-001/002/004/005/008/011/012/014/015/016/017/019/024/026/027 (A), CART-003/0
 |-------|--------|
 | Test IDs exist in the suite | Done — all IDs were checked against `docs/test-cases.md` |
 | The change is real | No — hypothetical, for demonstration only |
-| Adding an explicit tax assertion | Pending — owner decides |
+| Adding an explicit tax assertion | Implemented 2026-11-18 in `tests/checkout.spec.ts` (fixed $39.98 → $3.20 → $43.18; checked to fail when the expected tax is wrong); the owner's approval is still Pending |

@@ -83,14 +83,14 @@ Every AI result goes through [the review checklist](ai/templates/ai-output-revie
 
 ## Automation coverage
 
-23 tests, all independent (each starts from a fresh browser context):
+24 tests, all independent (each starts from a fresh browser context):
 
 | Area | Scenarios |
 |------|-----------|
 | Login | successful login, wrong password, locked user, empty credentials |
 | Inventory | six products with names and prices, all four sort options |
 | Cart | add, remove (cart page and inventory page), remove the last item, no duplicates after repeated add/remove, sorting keeps the cart, survives reload and logout/login, Reset App State, access denied when logged out |
-| Checkout | successful order with consistent totals, three incomplete-information cases |
+| Checkout | successful order with consistent totals, fixed expected tax ($39.98 → $3.20 → $43.18), three incomplete-information cases |
 
 Design choices: accessible locators first (`getByRole`), `data-test` test ids only where no role exists, no fixed sleeps,
 Playwright web-first assertions, screenshots on failure, traces retained on failure, HTML and JSON reports.
@@ -103,7 +103,7 @@ artifacts (screenshots and traces, on failure) as workflow artifacts. `SAUCE_PAS
 
 ## Example results
 
-Local run on 2026-11-17 (Chromium): 23 passed, 0 failed, about 10 seconds, stable across repeated runs. The same suite passes in GitHub Actions.
+Local run on 2026-11-18 (Chromium): 24 passed, 0 failed, about 12 seconds (the previous 23-test suite was stable across repeated runs on 2026-11-17). The same suite passes in GitHub Actions.
 
 ![Playwright HTML report](docs/evidence/playwright-html-report.png)
 

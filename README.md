@@ -63,7 +63,7 @@ environment so it is not hardcoded in tests). Never commit real credentials.
 
 - [Test plan](docs/test-plan.md): scope, approach, entry/exit criteria, risks. Severity and priority are rated separately.
 - [Test cases](docs/test-cases.md): 11 core cases (login, inventory, sorting, cart, checkout, summary, exploratory) plus 27 shopping-cart cases covering positive, negative, boundary, edge and regression scenarios.
-- [Bug reports](docs/bug-reports.md): template and nine observed findings with screenshot evidence (including `problem_user`, `error_user` and `visual_user` exploration), awaiting triage.
+- [Bug reports](docs/bug-reports.md): template and eleven triaged findings with screenshot evidence (including `problem_user`, `error_user` and `visual_user` exploration).
 - [Execution report](docs/test-execution-report.md) and [regression checklist](docs/regression-checklist.md).
 - [Application analysis](docs/application-analysis.md): workflows, messages and locator strategy found by inspecting the site.
 
@@ -113,7 +113,7 @@ Open the full report with `npm run report`. Findings from exploratory work, with
 
 - SauceDemo has no specification; some expected results are judgement calls and are labelled as such.
 - Only Chromium is configured; add Firefox and WebKit projects.
-- Exploratory findings (BUG-001 to BUG-011) have screenshot evidence in `docs/evidence/` but still need human triage.
+- Exploratory findings (BUG-001 to BUG-011) have screenshot evidence in `docs/evidence/` and were triaged on 2026-11-18; BUG-003 remains `Needs info`.
 - Only the standard user is automated; the demo users with known issues (`problem_user`, `error_user`, `visual_user`) are covered by exploratory testing only (see BUG-003 to BUG-009).
 - AI workflows are prompt-based by design (no API key); an optional script could automate result triage.
 - Add visual and accessibility checks, and Firefox/WebKit projects.

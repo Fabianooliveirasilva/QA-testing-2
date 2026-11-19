@@ -3,12 +3,13 @@
 Reports below record **observed behaviour** on the public demo site on 2026-11-17.
 SauceDemo has no specification, so the expected result is a QA judgement. Each report needs human
 triage before being treated as a confirmed defect. Severity and priority are rated separately.
+Triage was completed on 2026-11-18; the final status of each report is in its **Status** line.
 
 ## Template
 
 ```markdown
 ### BUG-XXX — <short, specific title>
-- **Status:** New | Confirmed | Rejected | Fixed
+- **Status:** New | Confirmed | Confirmed (by design) | Needs info | Rejected | Fixed
 - **Severity:** Critical | High | Medium | Low
 - **Priority:** P1 | P2 | P3
 - **Environment:** <browser + version, OS, URL, user, date>
@@ -25,7 +26,7 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 ## Reports
 
 ### BUG-001 — Checkout accepts an empty cart and completes a $0.00 order
-- **Status:** New (needs human triage; no specification available)
+- **Status:** Confirmed (triaged 2026-11-18; reproduced manually, no specification available)
 - **Severity:** Medium
 - **Priority:** P2
 - **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-17
@@ -42,7 +43,7 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 - **Notes / hypotheses (unconfirmed):** The demo may intentionally skip cart validation.
 
 ### BUG-002 — Checkout accepts whitespace-only customer information
-- **Status:** New (needs human triage)
+- **Status:** Confirmed (triaged 2026-11-18; reproduced manually)
 - **Severity:** Low
 - **Priority:** P3
 - **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-17
@@ -57,7 +58,7 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 - **Notes / hypotheses (unconfirmed):** Validation probably checks for an empty string without trimming input.
 
 ### BUG-003 — `problem_user`: identical product images and some products cannot be added to the cart
-- **Status:** New (likely intentional behaviour of a demo user; recorded as exploratory evidence)
+- **Status:** Needs info (triaged 2026-11-18; likely intentional behaviour of a demo user, and the outcome varied with the click sequence)
 - **Severity:** Medium
 - **Priority:** P3
 - **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `problem_user`, 2026-11-17
@@ -75,7 +76,7 @@ triage before being treated as a confirmed defect. Severity and priority are rat
 
 Both users are demo profiles designed to misbehave, so these are recorded as exploratory evidence against the
 `standard_user` baseline. Environment for all: Chromium (Playwright), Linux, https://www.saucedemo.com/, 1280x800.
-Status for every report: New (needs human triage).
+Status for every report: Confirmed (by design) (triaged 2026-11-18; behaviour reproduced, demo profile built to misbehave).
 
 ### BUG-004 — `error_user`: sorting has no effect and shows a "Sorting is broken" alert
 - **Severity:** Medium  **Priority:** P3  **Related:** TC-011, TC-005
@@ -123,10 +124,10 @@ Status for every report: New (needs human triage).
 ## Additional finding — coverage gap verification (2026-11-18)
 
 Found while verifying gap 3 of the [Coverage Analyzer example](../ai/examples/coverage-analyzer-example.md) with a Playwright
-script. Status: New (needs human triage and manual reproduction).
+script. Status: Confirmed (triaged 2026-11-18; see each report).
 
 ### BUG-010 — Checkout steps can be skipped by opening the Overview URL directly
-- **Status:** New (needs human triage)
+- **Status:** Confirmed (triaged 2026-11-18; reproduced manually)
 - **Severity:** Medium
 - **Priority:** P2
 - **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-18
@@ -142,7 +143,7 @@ script. Status: New (needs human triage and manual reproduction).
 - **Notes / hypotheses (unconfirmed):** The application seems to check only for a logged-in session, not for completion of the previous step. Distinct from BUG-001, which concerns the normal flow with an empty cart.
 
 ### BUG-011 — Browser Back after an order reopens the Overview and lets a second, empty order be completed
-- **Status:** New (needs human triage)
+- **Status:** Confirmed (triaged 2026-11-18; reproduced manually)
 - **Severity:** Medium
 - **Priority:** P3
 - **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-18

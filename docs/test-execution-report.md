@@ -45,26 +45,26 @@ Status meanings: **Pass** = executed and matched the expectation; **Fail** = exe
 
 | ID | Title | Severity | Priority | Status |
 |----|-------|----------|----------|--------|
-| BUG-001 | Checkout accepts an empty cart and completes a $0.00 order | Medium | P2 | New |
-| BUG-002 | Checkout accepts whitespace-only customer information | Low | P3 | New |
-| BUG-003 | `problem_user`: identical images and some products cannot be added | Medium | P3 | New |
-| BUG-004 | `error_user`: sorting has no effect and shows an alert | Medium | P3 | New |
-| BUG-005 | `error_user`: add/remove fails silently for some products | High | P3 | New |
-| BUG-006 | `error_user`: last name not kept, checkout continues without it | High | P3 | New |
-| BUG-007 | `error_user`: Finish does not complete the order | High | P3 | New |
-| BUG-008 | `visual_user`: wrong prices that change on every load | High | P3 | New |
-| BUG-009 | `visual_user`: cart icon and Checkout button misplaced | Low | P3 | New |
-| BUG-010 | Checkout steps can be skipped by opening the Overview URL directly | Medium | P2 | New |
-| BUG-011 | Browser Back after an order reopens the Overview and allows a second, empty order | Medium | P3 | New |
+| BUG-001 | Checkout accepts an empty cart and completes a $0.00 order | Medium | P2 | Confirmed |
+| BUG-002 | Checkout accepts whitespace-only customer information | Low | P3 | Confirmed |
+| BUG-003 | `problem_user`: identical images and some products cannot be added | Medium | P3 | Needs info |
+| BUG-004 | `error_user`: sorting has no effect and shows an alert | Medium | P3 | Confirmed (by design) |
+| BUG-005 | `error_user`: add/remove fails silently for some products | High | P3 | Confirmed (by design) |
+| BUG-006 | `error_user`: last name not kept, checkout continues without it | High | P3 | Confirmed (by design) |
+| BUG-007 | `error_user`: Finish does not complete the order | High | P3 | Confirmed (by design) |
+| BUG-008 | `visual_user`: wrong prices that change on every load | High | P3 | Confirmed (by design) |
+| BUG-009 | `visual_user`: cart icon and Checkout button misplaced | Low | P3 | Confirmed (by design) |
+| BUG-010 | Checkout steps can be skipped by opening the Overview URL directly | Medium | P2 | Confirmed |
+| BUG-011 | Browser Back after an order reopens the Overview and allows a second, empty order | Medium | P3 | Confirmed |
 
 ## 4. Limitations
 
-- SauceDemo has no specification, so all defects are judgement-based and need triage. BUG-003 to BUG-009 concern demo users that are designed to misbehave.
+- SauceDemo has no specification, so all defects are judgement-based (triaged on 2026-11-18). BUG-003 to BUG-009 concern demo users that are designed to misbehave.
 - Only Chromium was executed; Firefox and WebKit were not.
 - Exploratory findings were captured with scripts; screenshots are in `docs/evidence/`. The BUG-003 outcome varied between click sequences and needs a manual re-check.
 - Observations were made on one date; the public demo can change without notice.
 
 ## 5. Conclusion
 
-The automated regression suite is green and stable. Nine observations were raised for triage. No release decision is implied:
+The automated regression suite is green and stable. Eleven defects were raised and triaged on 2026-11-18 (see the table above). No release decision is implied:
 this is a portfolio exercise against a public demo.

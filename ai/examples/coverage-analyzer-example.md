@@ -54,6 +54,18 @@ sorting keeps the cart, badge across pages, order clears the cart, totals match.
 
 | Check | Status |
 |-------|--------|
-| Gaps are real and not already covered | Pending — each item must be checked against the live site before writing a test case |
+| Gaps are real and not already covered | Partial — gaps 2 and 3 checked with Playwright on 2026-11-18 (see below); gaps 1, 4–10 Pending, each must be checked against the live site before writing a test case |
 | Overlap notes make sense | Pending |
 | Decision on which gaps become test cases | Pending — project owner |
+
+### Gap verification (automated exploration, `standard_user`, 2026-11-18)
+
+Observed on the live site with a throwaway Playwright script. This is evidence of behaviour, not a human approval.
+
+| Gap | Observation | Verdict |
+|-----|-------------|---------|
+| 2 | Logged out, `/checkout-step-one.html` and `/checkout-step-two.html` redirect to `/` with "You can only access '...' when you are logged in." | Discarded — access control works |
+| 3 | Logged in, empty cart, `/checkout-step-two.html` opens directly: Overview with Total $0.00, and Finish reaches "Checkout: Complete!" | Confirmed — information step can be skipped |
+| 3 (variant) | Same with 1 item (Backpack), no customer data: Overview total $32.39, Finish shows "Thank you for your order!" | Confirmed — an order completes without name or postal code |
+
+Gap 3 is not yet in `docs/bug-reports.md`; it needs manual reproduction and a triage decision by the project owner.

@@ -54,7 +54,7 @@ sorting keeps the cart, badge across pages, order clears the cart, totals match.
 
 | Check | Status |
 |-------|--------|
-| Gaps are real and not already covered | Partial — gaps 2 and 3 checked with Playwright on 2026-11-18 (see below); gaps 1, 4–10 Pending, each must be checked against the live site before writing a test case |
+| Gaps are real and not already covered | Partial — gaps 1, 2, 3, 5 and 6 checked with Playwright on 2026-11-18 (see below); gaps 4 and 7–10 Pending, each must be checked against the live site before writing a test case |
 | Overlap notes make sense | Pending |
 | Decision on which gaps become test cases | Pending — project owner |
 
@@ -64,8 +64,12 @@ Observed on the live site with a throwaway Playwright script. This is evidence o
 
 | Gap | Observation | Verdict |
 |-----|-------------|---------|
+| 1 | On a product detail page, Add to cart turns the button into Remove (badge 1); Remove restores Add to cart (badge cleared, cart empty) | Confirmed as a coverage gap (no case covers it); behaviour correct, no defect |
 | 2 | Logged out, `/checkout-step-one.html` and `/checkout-step-two.html` redirect to `/` with "You can only access '...' when you are logged in." | Discarded — access control works |
 | 3 | Logged in, empty cart, `/checkout-step-two.html` opens directly: Overview with Total $0.00, and Finish reaches "Checkout: Complete!" | Confirmed — information step can be skipped |
 | 3 (variant) | Same with 1 item (Backpack), no customer data: Overview total $32.39, Finish shows "Thank you for your order!" | Confirmed — an order completes without name or postal code |
+| 5 | Cancel on the Overview opens `/inventory.html` (Cancel on step one goes to the cart); the cart keeps the Backpack (badge 1). Restarting checkout shows empty fields, and refilling then Finish completes the order | Confirmed as a coverage gap; behaviour correct, no defect. Minor inconsistency in where Cancel leads |
+| 6 | Back from the Overview opens step one and Forward returns to the Overview, badge kept | Confirmed as a coverage gap; behaviour correct |
+| 6 (after order) | After "Thank you for your order!", Back opens `/checkout-step-two.html` with an empty cart; Finish completes another order | Confirmed — wrong behaviour, same family as BUG-001 and BUG-010; recorded as BUG-011 in `docs/bug-reports.md` |
 
-Gap 3 is not yet in `docs/bug-reports.md`; it needs manual reproduction and a triage decision by the project owner.
+Gap 3 is recorded as BUG-010 in `docs/bug-reports.md`. The Back-after-order finding (gap 6) is recorded as BUG-011. Both need manual reproduction and a triage decision by the project owner.

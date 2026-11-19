@@ -140,3 +140,20 @@ script. Status: New (needs human triage and manual reproduction).
 - **Actual result:** "Checkout: Overview" opens (Total $32.39 with the Backpack, $0.00 with an empty cart) and Finish leads to "Checkout: Complete!" / "Thank you for your order!" with no customer data.
 - **Evidence:** [Overview opened by URL](evidence/BUG-010-1-overview-opened-directly.png), [order completed](evidence/BUG-010-2-order-completed.png) (captured 2026-11-18 with a Playwright script). Logged-out access to both checkout URLs is correctly denied (gap 2 discarded).
 - **Notes / hypotheses (unconfirmed):** The application seems to check only for a logged-in session, not for completion of the previous step. Distinct from BUG-001, which concerns the normal flow with an empty cart.
+
+### BUG-011 — Browser Back after an order reopens the Overview and lets a second, empty order be completed
+- **Status:** New (needs human triage)
+- **Severity:** Medium
+- **Priority:** P3
+- **Environment:** Chromium (Playwright), Linux, https://www.saucedemo.com/, `standard_user`, 2026-11-18
+- **Related test case:** CART-026, CART-020 (browser Back); related to BUG-001 and BUG-010
+- **Preconditions:** Logged in as `standard_user`; one product in the cart.
+- **Steps to reproduce:**
+  1. Add "Sauce Labs Backpack", open the cart, click Checkout, fill First Name, Last Name and Zip/Postal Code, click Continue.
+  2. Click Finish and wait for "Thank you for your order!".
+  3. Click the browser Back button.
+  4. Click Finish again.
+- **Expected result:** After the order is complete, Back does not reopen an active checkout step (redirect to the cart or inventory), and no second order can be placed from an empty cart.
+- **Actual result:** Back opens "Checkout: Overview" with no items (Item total $0, Total $0.00), and Finish shows "Thank you for your order!" again.
+- **Evidence:** [Overview reopened by Back](evidence/BUG-011-1-back-shows-empty-overview.png), [second order completed](evidence/BUG-011-2-second-order-completed.png) (captured 2026-11-18 with a Playwright script).
+- **Notes / hypotheses (unconfirmed):** The Overview page is rendered from the (now empty) cart without checking that checkout is still in progress. Same root family as BUG-001 and BUG-010; it may be fixed together with them.

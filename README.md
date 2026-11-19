@@ -113,7 +113,7 @@ Open the full report with `npm run report`. Findings from exploratory work, with
 
 - SauceDemo has no specification; some expected results are judgement calls and are labelled as such.
 - Only Chromium is configured; add Firefox and WebKit projects.
-- Exploratory findings (BUG-001 to BUG-010) have screenshot evidence in `docs/evidence/` but still need human triage.
+- Exploratory findings (BUG-001 to BUG-011) have screenshot evidence in `docs/evidence/` but still need human triage.
 - Only the standard user is automated; the demo users with known issues (`problem_user`, `error_user`, `visual_user`) are covered by exploratory testing only (see BUG-003 to BUG-009).
 - AI workflows are prompt-based by design (no API key); an optional script could automate result triage.
 - Add visual and accessibility checks, and Firefox/WebKit projects.

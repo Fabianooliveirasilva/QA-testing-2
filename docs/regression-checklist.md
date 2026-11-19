@@ -43,4 +43,4 @@ Tick manually; "Auto" items are covered by `npm test`, which should run first.
 - Build / date: 2026-11-18
 - Tester: Fabiano Oliveira
 - Result: Pass
-- Open defects: BUG-001 a BUG-010
+- Open defects: BUG-001 a BUG-011
